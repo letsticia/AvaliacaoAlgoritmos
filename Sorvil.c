@@ -2,11 +2,17 @@
 #include <string.h>
 #include <stdlib.h>
 
-// usuario e senha pré-definidos.
+//                          váriaveis globais:
+
+// usuário e senha pré-definidos.
 char admin[80] = "admin@admin.com";
 char senhaAdmin[8] = "12345678";
 
-// protótipos das funções que serão utilizadas no projeto:
+// email e senha que o usuário criará.
+char emailUser[80] = "";
+char senhaUser[8] = "";
+
+//                          protótipos das funções que serão utilizadas no projeto:
 int menuInicial();
 int menuCadastro();
 int menuLogin();
@@ -36,6 +42,8 @@ struct usuarios{
     char senha[8];
 };
 
+
+//                          declaração das funções do projeto
 
 /* Menu feito para que o usuário escolha entre logar em uma conta existente, criar uma nova
     uma conta nova ou sair do programa
@@ -83,6 +91,10 @@ int menuCadastro(){
     char email[80];
     char senha[8];
 
+    int quantidadesArroba;
+    int opcaoLogin;
+
+
     printf("=========================================\n");
     printf("              Menu de Login              \n");
     printf("=========================================\n");
@@ -92,6 +104,19 @@ int menuCadastro(){
     printf(" [Senha:]");
     scanf("%s", senha);
     printf("\n");
+
+    if(strlen(email) > 80){
+        printf("O email deve conter, no máximo, 80 caracteres\n");
+    } else{
+        for(int contador = 0; contador < strlen(email); contador++)
+        {
+            if (email[contador] == '@')
+            {
+                /* code */
+            }
+            
+        }    
+    };
 }
 
 /* Menu feito para que o usuário entre em uma conta pré-existente.
@@ -133,7 +158,7 @@ int menuPrincipal(){
     printf("              Menu Principal             \n");
     printf("=========================================\n");
     printf("\n");
-    printf("   Seja bem-vindo(a) ao Sorvil! Livros de\n");
+    printf("   Seja bem-vindo(a) ao Sorvil! Livros\n");
     printf("        novos e de qualidade só aqui!\n");
     printf("\n");
     printf("-----------------------------------------\n");
