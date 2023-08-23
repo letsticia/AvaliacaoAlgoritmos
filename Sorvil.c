@@ -86,7 +86,7 @@ int menuCadastro(){
     printf("=========================================\n");
     printf("              Menu de Login              \n");
     printf("=========================================\n");
-    printf('\n');
+    printf("\n");
     printf("[E-mail:]");
     scanf("%s", email);
     printf(" [Senha:]");
@@ -98,7 +98,7 @@ int menuCadastro(){
    É a segunda parte do primeiro requisito proposto: Realizar Login.*/
 int menuLogin(){
     int opcao;
-    int validado = 0;
+    int validado = 0; 
 
     // input da tela de login.
     char email[80];
