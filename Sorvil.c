@@ -2,32 +2,16 @@
 #include <string.h>
 #include <stdlib.h>
 
-//                          váriaveis globais:
-
-// usuário e senha pré-definidos.
-char admin[80] = "admin@admin.com";
-char senhaAdmin[8] = "12345678";
-
-// email e senha que o usuário criará.
-char emailUser[80] = "";
-char senhaUser[8] = "";
-
-//                          protótipos das funções que serão utilizadas no projeto:
-int menuInicial();
-int menuCadastro();
-int menuLogin();
-int menuPrincipal();
-
-// fução main que chama o menu inicial, entrando em um loop de funções.
+//                               fução main(ultilizada para iniciar um loop entre as funções)
 int main(){
 
     menuInicial();
 
-    return 0; // sai da função main.
+    return 0; 
+    // sai da função main, fechando, assim, o programa.
 }
 
-
-// Os livros serão postos em um vetor da struct estoque.
+//                              Os livros serão postos em um vetor da struct estoque.
 struct estoque
 {
     char nome;
@@ -36,12 +20,31 @@ struct estoque
     int promocao;
 };
 
-// Os usuários serão postos em um vetor da struct usuarios.
-struct usuarios{
-    char email[80];
-    char senha[8];
-};
+//                          váriaveis globais:
 
+// usuário e senha pré-definidos.
+char admin[80] = "admin@admin.com";
+char senhaAdmin[8] = "12345678";
+
+// email e senha que o usuário criará.
+char emailUser[80];
+char senhaUser[8];
+
+//                          protótipos das funções que serão utilizadas no projeto:
+
+// -> menus de múltiplas opções
+
+int menuInicial();
+int menuCadastro();
+int menuLogin();
+int menuPrincipal();
+
+
+// -> menus de filtros de livros
+
+int livrosFicao();
+int livrosRomance();
+int livrosFantasia();
 
 //                          declaração das funções do projeto
 
@@ -63,30 +66,32 @@ int menuInicial(){
     printf("    (3)     Sair do sorvil\n");
     printf("-----------------------------------------\n");
 
-
-    // laço de repetiçã que só sairá quando um caso retornar uma função.
-    while(1){
-        printf("Selecione uma das opções acima: ");
-        scanf("%i", &opcao);
-        switch (opcao){
-        case 1:
-            printf("Você está sendo redirencionado para o menu de Login\n");
-            return menuLogin();
-            break;
-        case 2:
-            printf("Você está sendo redirencionado para o menu de Criação de Contas\n");
-            return menuCadastro();
-            break;
-        case 3:
-            return 0;
-            break;
-        default:
-            printf("Opção inválida, por favor, selecione uma opção válida.\n");
-            break;
-        }
+    printf("Selecione uma das opções acima: ");
+    scanf("%i", &opcao);
+    switch (opcao){
+    case 1:
+        printf("Você está sendo redirencionado para o menu de Login\n");
+        return menuLogin();
+        break;
+    case 2:
+        printf("Você está sendo redirencionado para o menu de Criação de Contas\n");
+        return menuCadastro();
+        break;
+    case 3:
+        return 0;
+        break;
+    default:
+        printf("Opção inválida, por favor, selecione uma opção válida.\n");
+        menuInicial();
+        break;
     }
+    
 }
 
+
+/* Menu feito para cadastras contas novas ao programa, esta função é a que valida os e-mails
+fazendo assim, o segundo requisito das propostas da avaliação:
+            -> Validação de email.*/
 int menuCadastro(){
     char email[80];
     char senha[8];
@@ -105,18 +110,37 @@ int menuCadastro(){
     scanf("%s", senha);
     printf("\n");
 
+    if (!strcmp(admin, email)){
+        printf("Este e-mail já está sendo utilizado");
+        return menuCadastro();
+        }
+    
     if(strlen(email) > 80){
-        printf("O email deve conter, no máximo, 80 caracteres\n");
+        printf("O e-mail deve conter, no máximo, 80 caracteres\n");
+        return menuCadastro();
+
     } else{
-        for(int contador = 0; contador < strlen(email); contador++)
-        {
-            if (email[contador] == '@')
-            {
-                /* code */
+        for(int contador = 0; contador < strlen(email); contador++){
+            if (email[contador] == '@'){
+                quantidadesArroba++;
             }
-            
-        }    
-    };
+        }
+        if (quantidadesArroba = 1){
+            printf("O e-mail  é válido!\n");
+            if (strlen(senha) <= 8){
+                printf("Conta cadastrada com sucesso! Você está sendo redirecionado\n");
+                printf("para o menu principal! Boas compras!\n");
+                return menuPrincipal();
+            } else{
+                printf("A senha deve conter, no máximo, 8 caracteres\n");
+                return menuCadastro();
+            }    
+        } else{
+            printf("A quantidade de @ no e-mail deve ser igual a 1\n");
+            return menuCadastro();
+        }
+        
+    }
 }
 
 /* Menu feito para que o usuário entre em uma conta pré-existente.
@@ -129,24 +153,42 @@ int menuLogin(){
     char email[80];
     char senha[8];
 
-    /* repetirá até que o usuário insira o email e a senha corretos ou quando
-    ele decidir que quer sair do programa*/
-    while (1){
-        printf("=========================================\n");
-        printf("              Menu de Login              \n");
-        printf("=========================================\n");
-        printf("\n");
-        printf("[E-mail:]");
-        scanf("%s", email);
-        printf(" [Senha:]");
-        scanf("%s", senha);
-        printf("\n");
+    printf("=========================================\n");
+    printf("              Menu de Login              \n");
+    printf("=========================================\n");
+    printf("\n");
+    printf("[E-mail:]");
+    scanf("%s", email);
+    printf(" [Senha:]");
+    scanf("%s", senha);
+    printf("\n");
 
-        ;
-
+    // comparando se o email e a senha digitados estão corretos
+    // se sim, o usuário é redirecionado para a tela principal
+    // se não, o usuário tem que escolher entre tentar logar novamente
+    // ou voltar ao menu inicial.
+    if ((!strcmp(admin, email)) && (!strcmp(senhaAdmin, senha))){
+        printf("Login realizado com sucesso!\n");
+        return menuPrincipal();
+    } else{
+        printf("Email e/ou senha incorretos\n\n");
+        printf("Você deseja tentar logar novamente(1) ou voltar ao menu principal?(2)");
+        scanf("%i", &opcao);
+        switch (opcao){
+        case 1:
+            return menuLogin();
+            break;
+        case 2:
+            printf("Você está sendo redirecionado para o menu inicial");
+            return menuInicial();
+            break;
+        default:
+            return 0;
+            break;
+        }
     }
 }
-
+        
 
 /* Menu em que o usuário pode navegar entre todas as outras tela, assim, completando dois requisitos de uma vez.
 Sendo estes:
