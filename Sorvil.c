@@ -17,7 +17,6 @@ struct estoque
     char nome;
     char genero;
     float valor;
-    int promocao;
 };
 
 //                          váriaveis globais:
@@ -26,9 +25,12 @@ struct estoque
 char admin[80] = "admin@admin.com";
 char senhaAdmin[8] = "12345678";
 
-// email e senha que o usuário criará.
-char emailUser[80];
-char senhaUser[8];
+// valor do carrinho
+int carrinho = 0;
+
+
+struct estoque ficcao[5];
+
 
 //                          protótipos das funções que serão utilizadas no projeto:
 
@@ -38,13 +40,17 @@ int menuInicial();
 int menuCadastro();
 int menuLogin();
 int menuPrincipal();
+int menuCarrinho();
 
 
 // -> menus de filtros de livros
 
-int livrosFicao();
+int livrosFiccao();
 int livrosRomance();
+int livrosMisterio();
 int livrosFantasia();
+int livrosTerror();
+
 
 //                          declaração das funções do projeto
 
@@ -216,8 +222,34 @@ int menuPrincipal(){
     printf("Selecione uma das opções acima: "); 
 }
 
-// Apresentar menu de opções (no mínimo 5)
 
-// Operações básicas sobre pelo menos 1 item (cadastrar, listar, editar e excluir)
+/* Menu de carrinho, o qual mostra a total das compras do usuário, além de mostrar quais itens estão no carrinho, também pergunta
+qual o método de pagamento. Essa função cumpre o requisito de:
+            -> Operações básicas sobre pelo menos 1 item (cadastrar, listar, editar e excluir)*/
 
 // Sorteio (apresentar uma cartela de rifa em formato retangular  para participar de um sorteio)
+
+int livrosFiccao(){
+    struct estoque ficcao[5];
+
+    ficcao[0].nome = "1984";
+    ficcao[0].genero = "Ficção";
+    ficcao[0].valor = 45;
+
+    ficcao[1].nome = "Neuromancer";
+    ficcao[1].genero = "Ficção";
+    ficcao[1].valor = 37.5;
+
+    ficcao[2].nome = "Duna";
+    ficcao[2].genero = "Ficção";
+    ficcao[2].valor = 52;
+
+    ficcao[3].nome = "O Guia do Mochileiro das Galáxias";
+    ficcao[3].genero = "Ficção";
+    ficcao[3].valor = 29.99;
+
+    ficcao[4].nome = "O Conto da Aia";
+    ficcao[4].genero = "Ficção";
+    ficcao[4].valor = 42.8;
+}
+
