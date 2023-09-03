@@ -294,7 +294,83 @@ int livrosFiccao(){
         return menuPrincipal();
         break;
     case 6:
-        //return livrosRomance();
+        return livrosRomance();
+        break;
+    default:
+        printf("Opçao inválida, selecione uma opção válida.");
+        return livrosFiccao();
+        break;
+    }
+}
+
+int livrosRomance(){
+
+    int opcaoRomance;
+    struct estoque romance[4];
+    
+
+    strcpy(romance[0].nome, "Orgulho e Preconceito");
+    strcpy(romance[0].genero, "Romance");
+    romance[0].valor = 28.5;
+
+    strcpy(romance[1].nome, "O Amor nos Tempos do Cólera");
+    strcpy(romance[1].genero, "Romance");
+    romance[1].valor = 34.2;
+
+    strcpy(romance[2].nome, "Como Eu Era Antes de Você");
+    strcpy(romance[2].genero, "Romance");
+    romance[2].valor = 31.75;
+
+    strcpy(romance[3].nome, "Anna Karenina");
+    strcpy(romance[3].genero, "Romance");
+    romance[3].valor = 48.9;
+
+    strcpy(romance[4].nome, "Outlander");
+    strcpy(romance[4].genero, "Romance");
+    romance[4].valor = 39.6;
+
+    printf("=========================================\n");
+    printf("            LIVROS DE ROMANCE            \n");
+    printf("=========================================\n");
+    printf("\n");
+
+    for (int contador = 0; contador < 5; contador++)
+    {
+        printf("[NOME:   ]      %s\n", romance[contador].nome);
+        printf("[GENERO: ]      %s\n", romance[contador].genero);
+        printf("[VALOR:  ]      %.2f\n", romance[contador].valor);
+        printf("[ID:     ]      %i\n\n", contador);
+    }
+    printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
+    printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
+    scanf("%i", &opcaoRomance);
+
+    switch (opcaoRomance){
+    case 0:
+        carrinho = carrinho + romance[0].valor;
+        return livrosRomance();
+        break;
+    case 1:
+        carrinho = carrinho + romance[1].valor;
+        return livrosRomance();
+        break;
+    case 2:
+        carrinho = carrinho + romance[2].valor;
+        return livrosRomance();
+        break;
+    case 3:
+        carrinho = carrinho + romance[3].valor;
+        return livrosRomance();
+        break;
+    case 4:
+        carrinho = carrinho + romance[4].valor;
+        return livrosRomance();
+        break;
+    case 5:
+        return menuPrincipal();
+        break;
+    case 6:
+        //return livrosMisterio();
         break;
     default:
         printf("Opçao inválida, selecione uma opção válida.");
