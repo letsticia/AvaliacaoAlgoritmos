@@ -26,7 +26,7 @@ char admin[80] = "admin@admin.com";
 char senhaAdmin[8] = "12345678";
 
 // valor do carrinho
-int carrinho = 0;
+float carrinho = 0;
 
 
 struct estoque ficcao[5];
@@ -77,8 +77,7 @@ int menuInicial(){
     switch (opcao){
     case 1:
         printf("Você está sendo redirencionado para o menu de Login\n");
-        //return menuLogin();
-        return livrosFiccao();
+        return menuLogin();
         break;
     case 2:
         printf("Você está sendo redirencionado para o menu de Criação de Contas\n");
@@ -231,7 +230,7 @@ qual o método de pagamento. Essa função cumpre o requisito de:
 // Sorteio (apresentar uma cartela de rifa em formato retangular  para participar de um sorteio)
 
 int livrosFiccao(){
-    int opcao;
+    int opcaoFiccao = 0;
     struct estoque ficcao[5];
 
     strcpy(ficcao[0].nome, "1984");
@@ -254,6 +253,11 @@ int livrosFiccao(){
     strcpy(ficcao[4].genero, "Ficção");
     ficcao[4].valor = 42.8;
 
+    printf("=========================================\n");
+    printf("             LIVROS DE FICCAO            \n");
+    printf("=========================================\n");
+    printf("\n");
+
     for (int contador = 0; contador < 5; contador++)
     {
         printf("[NOME:   ]      %s\n", ficcao[contador].nome);
@@ -263,6 +267,38 @@ int livrosFiccao(){
     }
     printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
     printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
-    scanf("%i", opcao);
-}
+    scanf("%i", &opcaoFiccao);
 
+    switch (opcaoFiccao){
+    case 0:
+        carrinho = carrinho + ficcao[0].valor;
+        return livrosFiccao();
+        break;
+    case 1:
+        carrinho = carrinho + ficcao[1].valor;
+        return livrosFiccao();
+        break;
+    case 2:
+        carrinho = carrinho + ficcao[2].valor;
+        return livrosFiccao();
+        break;
+    case 3:
+        carrinho = carrinho + ficcao[3].valor;
+        return livrosFiccao();
+        break;
+    case 4:
+        carrinho = carrinho + ficcao[4].valor;
+        return livrosFiccao();
+        break;
+    case 5:
+        return menuPrincipal();
+        break;
+    case 6:
+        //return livrosRomance();
+        break;
+    default:
+        printf("Opçao inválida, selecione uma opção válida.");
+        return livrosFiccao();
+        break;
+    }
+}
