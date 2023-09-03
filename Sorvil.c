@@ -28,6 +28,8 @@ char senhaAdmin[8] = "12345678";
 // valor do carrinho
 float carrinho = 0;
 
+// lista que vai amarzena os livros que estão no carrinho
+char carrinhoLivros[10][50];
 
 struct estoque ficcao[5];
 
@@ -229,9 +231,19 @@ qual o método de pagamento. Essa função cumpre o requisito de:
 
 // Sorteio (apresentar uma cartela de rifa em formato retangular  para participar de um sorteio)
 
+
+// Menu que irá exibir os livros de Ficção
+
 int livrosFiccao(){
+
+    // variável que vai ser ultilizada para navegar nesse menu
     int opcaoFiccao = 0;
+
+    // criando o vetor para os livros de ficção da struct estoque
     struct estoque ficcao[5];
+
+
+    //  declarando os livros de ficção dentro do vetor
 
     strcpy(ficcao[0].nome, "1984");
     strcpy(ficcao[0].genero, "Ficção");
@@ -253,6 +265,9 @@ int livrosFiccao(){
     strcpy(ficcao[4].genero, "Ficção");
     ficcao[4].valor = 42.8;
 
+
+    // parte visivel ao usuário
+
     printf("=========================================\n");
     printf("             LIVROS DE FICCAO            \n");
     printf("=========================================\n");
@@ -268,6 +283,8 @@ int livrosFiccao(){
     printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
     printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
     scanf("%i", &opcaoFiccao);
+
+    // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
 
     switch (opcaoFiccao){
     case 0:
@@ -303,9 +320,14 @@ int livrosFiccao(){
     }
 }
 
+// Menu que irá exibir os livros de Romance
+
 int livrosRomance(){
 
+    // variável que vai ser ultilizada para navegar nesse menu
     int opcaoRomance;
+
+    // criando o vetor para os livros de romance da struct estoque
     struct estoque romance[4];
     
 
@@ -329,6 +351,8 @@ int livrosRomance(){
     strcpy(romance[4].genero, "Romance");
     romance[4].valor = 39.6;
 
+     // parte visivel ao usuário
+
     printf("=========================================\n");
     printf("            LIVROS DE ROMANCE            \n");
     printf("=========================================\n");
@@ -344,6 +368,8 @@ int livrosRomance(){
     printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
     printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
     scanf("%i", &opcaoRomance);
+
+    // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
 
     switch (opcaoRomance){
     case 0:
