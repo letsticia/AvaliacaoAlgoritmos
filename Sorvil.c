@@ -101,10 +101,15 @@ int menuInicial(){
 fazendo assim, o segundo requisito das propostas da avaliação:
             -> Validação de email.*/
 int menuCadastro(){
+
+    // inputs do usuário
     char email[80];
     char senha[8];
 
+    // valida a quantidade de @ do email que o usuário irá inserir
     int quantidadesArroba;
+
+    // variável que permite navegar dentro deste menu
     int opcaoLogin;
 
 
@@ -118,11 +123,13 @@ int menuCadastro(){
     scanf("%s", senha);
     printf("\n");
 
+    // comparando se o e-mail já foi ultilizado
     if (!strcmp(admin, email)){
         printf("Este e-mail já está sendo utilizado");
         return menuCadastro();
-        }
+    }
     
+    // validando o tamanho do e-mail inserido e se contém 1 @
     if(strlen(email) > 80){
         printf("O e-mail deve conter, no máximo, 80 caracteres\n");
         return menuCadastro();
@@ -154,9 +161,10 @@ int menuCadastro(){
 /* Menu feito para que o usuário entre em uma conta pré-existente.
    É a segunda parte do primeiro requisito proposto: Realizar Login.*/
 int menuLogin(){
-    int opcao;
-    int validado = 0; 
 
+    // variável que possibilita navegar nesse menu
+    int opcao;
+ 
     // input da tela de login.
     char email[80];
     char senha[8];
@@ -204,6 +212,9 @@ Sendo estes:
     -> Mensagem de boas vindas*/
 int menuPrincipal(){
 
+    // variável que possibilita navegar neste menu
+    int opcaoPrincipal;
+
     printf("=========================================\n");
     printf("              Menu Principal             \n");
     printf("=========================================\n");
@@ -222,6 +233,26 @@ int menuPrincipal(){
     printf("    (8)     Sair do Sorvil\n");
     printf("-----------------------------------------\n");
     printf("Selecione uma das opções acima: "); 
+    scanf("%i", &opcaoPrincipal);
+
+    switch (opcaoPrincipal){
+    case 1:
+        // pass
+        break;
+    case 2:
+        return livrosFiccao();
+        break;
+    case 3:
+        return livrosRomance();
+        break;
+
+    // proximos cases
+
+    default:
+        printf("opção inválida, por favor, digite uma opção válida");
+        return menuPrincipal();
+        break;
+    }
 }
 
 
