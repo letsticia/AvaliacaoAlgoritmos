@@ -14,8 +14,8 @@ int main(){
 //                              Os livros serão postos em um vetor da struct estoque.
 struct estoque
 {
-    char nome;
-    char genero;
+    char nome[100];
+    char genero[50];
     float valor;
 };
 
@@ -77,7 +77,8 @@ int menuInicial(){
     switch (opcao){
     case 1:
         printf("Você está sendo redirencionado para o menu de Login\n");
-        return menuLogin();
+        //return menuLogin();
+        return livrosFiccao();
         break;
     case 2:
         printf("Você está sendo redirencionado para o menu de Criação de Contas\n");
@@ -230,26 +231,38 @@ qual o método de pagamento. Essa função cumpre o requisito de:
 // Sorteio (apresentar uma cartela de rifa em formato retangular  para participar de um sorteio)
 
 int livrosFiccao(){
+    int opcao;
     struct estoque ficcao[5];
 
-    ficcao[0].nome = "1984";
-    ficcao[0].genero = "Ficção";
-    ficcao[0].valor = 45;
+    strcpy(ficcao[0].nome, "1984");
+    strcpy(ficcao[0].genero, "Ficção");
+    ficcao[0].valor = 45.0;
 
-    ficcao[1].nome = "Neuromancer";
-    ficcao[1].genero = "Ficção";
+    strcpy(ficcao[1].nome, "Neuromancer");
+    strcpy(ficcao[1].genero, "Ficção");
     ficcao[1].valor = 37.5;
 
-    ficcao[2].nome = "Duna";
-    ficcao[2].genero = "Ficção";
-    ficcao[2].valor = 52;
+    strcpy(ficcao[2].nome, "Duna");
+    strcpy(ficcao[2].genero, "Ficção");
+    ficcao[2].valor = 52.0;
 
-    ficcao[3].nome = "O Guia do Mochileiro das Galáxias";
-    ficcao[3].genero = "Ficção";
+    strcpy(ficcao[3].nome, "O Guia do Mochileiro das Galáxias");
+    strcpy(ficcao[3].genero, "Ficção");
     ficcao[3].valor = 29.99;
 
-    ficcao[4].nome = "O Conto da Aia";
-    ficcao[4].genero = "Ficção";
+    strcpy(ficcao[4].nome, "O Conto da Aia");
+    strcpy(ficcao[4].genero, "Ficção");
     ficcao[4].valor = 42.8;
+
+    for (int contador = 0; contador < 5; contador++)
+    {
+        printf("[NOME:   ]      %s\n", ficcao[contador].nome);
+        printf("[GENERO: ]      %s\n", ficcao[contador].genero);
+        printf("[VALOR:  ]      %.2f\n", ficcao[contador].valor);
+        printf("[ID:     ]      %i\n\n", contador);
+    }
+    printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
+    printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
+    scanf("%i", opcao);
 }
 
