@@ -28,10 +28,11 @@ char senhaAdmin[8] = "12345678";
 // valor do carrinho
 float carrinho = 0;
 
-// lista que vai amarzena os livros que estão no carrinho
-char carrinhoLivros[10][50];
+// lista que vai amarzenar os livros que estão no carrinho
+// char carrinhoLivros[25][50];
 
-struct estoque ficcao[5];
+// variável que vai contar quantos livros estão no carrinho e vai ajudar a mostrar cada um deles
+// int contadorLivros = 0;
 
 
 //                          protótipos das funções que serão utilizadas no projeto:
@@ -245,7 +246,9 @@ int menuPrincipal(){
     case 3:
         return livrosRomance();
         break;
-
+    case 4:
+        return livrosMisterio();
+        break;
     // proximos cases
 
     default:
@@ -361,6 +364,7 @@ int livrosRomance(){
     // criando o vetor para os livros de romance da struct estoque
     struct estoque romance[4];
     
+    //  declarando os livros de Romance dentro do vetor
 
     strcpy(romance[0].nome, "Orgulho e Preconceito");
     strcpy(romance[0].genero, "Romance");
@@ -427,11 +431,269 @@ int livrosRomance(){
         return menuPrincipal();
         break;
     case 6:
-        //return livrosMisterio();
+        return livrosMisterio();
         break;
     default:
         printf("Opçao inválida, selecione uma opção válida.");
-        return livrosFiccao();
+        return livrosRomance();
+        break;
+    }
+}
+
+// Menu que irá exibir os livros de Mistério
+
+int livrosMisterio(){
+
+    // variável que vai ser ultilizada para navegar nesse menu
+    int opcaoMisterio;
+
+    // criando o vetor para os livros de romance da struct estoque
+    struct estoque misterio[4];
+
+    //  declarando os livros de Misterio dentro do vetor
+
+    strcpy(misterio[0].nome, "O Código Da Vinci");
+    strcpy(misterio[0].genero, "Mistério");
+    misterio[0].valor = 27.95;
+
+    strcpy(misterio[1].nome, "Sherlock Holmes: As Aventuras");
+    strcpy(misterio[1].genero, "Mistério");
+    misterio[1].valor = 23.7;
+
+    strcpy(misterio[2].nome, "Garota Exemplar");
+    strcpy(misterio[2].genero, "Mistério");
+    misterio[2].valor = 32.4;
+
+    strcpy(misterio[3].nome, "O Silêncio dos Inocentes");
+    strcpy(misterio[3].genero, "Mistério");
+    misterio[3].valor = 29.15;
+
+    strcpy(misterio[4].nome, "A Garota no Trem");
+    strcpy(misterio[4].genero, "Mistério");
+    misterio[4].valor = 25.8;
+
+    // parte visivel ao usuário
+
+    printf("=========================================\n");
+    printf("           LIVROS DE MISTÉRIO            \n");
+    printf("=========================================\n");
+    printf("\n");
+
+    for (int contador = 0; contador < 5; contador++)
+    {
+        printf("[NOME:   ]      %s\n", misterio[contador].nome);
+        printf("[GENERO: ]      %s\n", misterio[contador].genero);
+        printf("[VALOR:  ]      %.2f\n", misterio[contador].valor);
+        printf("[ID:     ]      %i\n\n", contador);
+    }
+    printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
+    printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
+    scanf("%i", &opcaoMisterio);
+
+    // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
+
+    switch (opcaoMisterio){
+    case 0:
+        carrinho = carrinho + misterio[0].valor;
+        return livrosRomance();
+        break;
+    case 1:
+        carrinho = carrinho + misterio[1].valor;
+        return livrosRomance();
+        break;
+    case 2:
+        carrinho = carrinho + misterio[2].valor;
+        return livrosRomance();
+        break;
+    case 3:
+        carrinho = carrinho + misterio[3].valor;
+        return livrosRomance();
+        break;
+    case 4:
+        carrinho = carrinho + misterio[4].valor;
+        return livrosRomance();
+        break;
+    case 5:
+        return menuPrincipal();
+        break;
+    case 6:
+        return livrosFantasia();
+        break;
+    default:
+        printf("Opçao inválida, selecione uma opção válida.");
+        return livrosMisterio();
+        break;
+    }
+}
+
+// Menu que irá exibir os livros de Fantasia
+
+int livrosFantasia(){
+
+    // variável que vai ser ultilizada para navegar nesse menu
+    int opcaoFantasia;
+
+    // criando o vetor para os livros de romance da struct estoque
+    struct estoque fantasia[4];
+
+    //  declarando os livros de Fantasia dentro do vetor
+
+    strcpy(fantasia[0].nome, "O Senhor dos Anéis");
+    strcpy(fantasia[0].genero, "Fantasia");
+    fantasia[0].valor = 56.75;
+
+    strcpy(fantasia[1].nome, "Harry Potter e a Pedra Filosofal");
+    strcpy(fantasia[1].genero, "Fantasia");
+    fantasia[1].valor = 42.0;
+
+    strcpy(fantasia[2].nome, "Crônicas de Nárnia: O Leão, a Feiticeira e o Guarda-Roupa");
+    strcpy(fantasia[2].genero, "Fantasia");
+    fantasia[2].valor = 30.25;
+
+    strcpy(fantasia[3].nome, "A Guerra dos Tronos");
+    strcpy(fantasia[3].genero, "Fantasia");
+    fantasia[3].valor = 47.5;
+
+    strcpy(fantasia[4].nome, "Percy Jackson e o Ladrão de Raios");
+    strcpy(fantasia[4].genero, "Fantasia");
+    fantasia[4].valor = 33.9;
+
+    // parte visivel ao usuário
+
+    printf("=========================================\n");
+    printf("           LIVROS DE FANTASIA            \n");
+    printf("=========================================\n");
+    printf("\n");
+
+    for (int contador = 0; contador < 5; contador++)
+    {
+        printf("[NOME:   ]      %s\n", fantasia[contador].nome);
+        printf("[GENERO: ]      %s\n", fantasia[contador].genero);
+        printf("[VALOR:  ]      %.2f\n", fantasia[contador].valor);
+        printf("[ID:     ]      %i\n\n", contador);
+    }
+    printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
+    printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
+    scanf("%i", &opcaoFantasia);
+
+    // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
+
+    switch (opcaoFantasia){
+    case 0:
+        carrinho = carrinho + fantasia[0].valor;
+        return livrosRomance();
+        break;
+    case 1:
+        carrinho = carrinho + fantasia[1].valor;
+        return livrosRomance();
+        break;
+    case 2:
+        carrinho = carrinho + fantasia[2].valor;
+        return livrosRomance();
+        break;
+    case 3:
+        carrinho = carrinho + fantasia[3].valor;
+        return livrosRomance();
+        break;
+    case 4:
+        carrinho = carrinho + fantasia[4].valor;
+        return livrosRomance();
+        break;
+    case 5:
+        return menuPrincipal();
+        break;
+    case 6:
+        return livrosTerror();
+        break;
+    default:
+        printf("Opçao inválida, selecione uma opção válida.");
+        return livrosMisterio();
+        break;
+    }
+}
+
+// Menu que irá exibir os livros de Romance
+
+int livrosTerror(){
+
+    // variável que vai ser ultilizada para navegar nesse menu
+    int opcaoTerror;
+
+    // criando o vetor para os livros de romance da struct estoque
+    struct estoque terror[4];
+
+    //  declarando os livros de Romance dentro do vetor
+
+    strcpy(terror[0].nome, "O Iluminado");
+    strcpy(terror[0].genero, "Terror");
+    terror[0].valor = 36.6;
+
+    strcpy(terror[1].nome, "Psicose");
+    strcpy(terror[1].genero, "Terror");
+    terror[1].valor = 31.2;
+
+    strcpy(terror[2].nome, "O Exorcista");
+    strcpy(terror[2].genero, "Terror");
+    terror[2].valor = 39.75;
+
+    strcpy(terror[3].nome, "Coraline");
+    strcpy(terror[3].genero, "Terror");
+    terror[3].valor = 22.85;
+
+    strcpy(terror[4].nome, "O Chamado de Cthulhu");
+    strcpy(terror[4].genero, "Terror");
+    terror[4].valor = 28.1;
+
+     // parte visivel ao usuário
+
+    printf("=========================================\n");
+    printf("            LIVROS DE TERROR             \n");
+    printf("=========================================\n");
+    printf("\n");
+
+    for (int contador = 0; contador < 5; contador++)
+    {
+        printf("[NOME:   ]      %s\n", terror[contador].nome);
+        printf("[GENERO: ]      %s\n", terror[contador].genero);
+        printf("[VALOR:  ]      %.2f\n", terror[contador].valor);
+        printf("[ID:     ]      %i\n\n", contador);
+    }
+    printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
+    printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
+    scanf("%i", &opcaoTerror);
+
+    // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
+
+    switch (opcaoTerror){
+    case 0:
+        carrinho = carrinho + terror[0].valor;
+        return livrosRomance();
+        break;
+    case 1:
+        carrinho = carrinho + terror[1].valor;
+        return livrosRomance();
+        break;
+    case 2:
+        carrinho = carrinho + terror[2].valor;
+        return livrosRomance();
+        break;
+    case 3:
+        carrinho = carrinho + terror[3].valor;
+        return livrosRomance();
+        break;
+    case 4:
+        carrinho = carrinho + terror[4].valor;
+        return livrosRomance();
+        break;
+    case 5:
+        return menuPrincipal();
+        break;
+    case 6:
+        return menuCarrinho();
+        break;
+    default:
+        printf("Opçao inválida, selecione uma opção válida.");
+        return livrosMisterio();
         break;
     }
 }
