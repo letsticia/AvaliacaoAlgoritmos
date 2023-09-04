@@ -29,10 +29,11 @@ char senhaAdmin[8] = "12345678";
 float carrinho = 0;
 
 // lista que vai amarzenar os livros que estão no carrinho
-// char carrinhoLivros[25][50];
+char carrinhoLivros[25][50];
+int carrinhoValores[25];
 
 // variável que vai contar quantos livros estão no carrinho e vai ajudar a mostrar cada um deles
-// int contadorLivros = 0;
+int contadorLivros = 0;
 
 
 //                          protótipos das funções que serão utilizadas no projeto:
@@ -237,19 +238,37 @@ int menuPrincipal(){
     scanf("%i", &opcaoPrincipal);
 
     switch (opcaoPrincipal){
+
     case 1:
-        // pass
+        return livrosFiccao();
         break;
+
     case 2:
         return livrosFiccao();
         break;
+
     case 3:
         return livrosRomance();
         break;
+
     case 4:
         return livrosMisterio();
+
+    case 5:
+        return livrosFantasia();
         break;
-    // proximos cases
+
+    case 6:
+        return livrosTerror();
+        break;
+
+    case 7:
+        return menuCarrinho();
+        break;
+
+    case 8:
+        return 0;
+        break;
 
     default:
         printf("opção inválida, por favor, digite uma opção válida");
@@ -263,6 +282,31 @@ int menuPrincipal(){
 qual o método de pagamento. Essa função cumpre o requisito de:
             -> Operações básicas sobre pelo menos 1 item (cadastrar, listar, editar e excluir)*/
 
+int menuCarrinho(){
+
+    // variável que possibilita navegar neste menu
+    int opcaoCarrinho;
+
+    printf("=========================================\n");
+    printf("           Carrinho de Compras           \n");
+    printf("=========================================\n");
+    printf("\n");
+
+    if (contadorLivros == 0){
+        printf("Você não colocou nada no seu carrinho ainda!\nVocê deseja voltar ao menu (1) ou você deseja\n sair do sorvill?");
+    } 
+    else{
+        printf("Os seguintes livros estão no seu carrinho:");
+        printf("[ID]        NOME              VALOR(R$)");
+        for(int contador = 0; contador < contadorLivros; contador++){
+            printf("[%i]        %s              R$%.2f");
+        }
+        
+        // falta 
+        //--> opcao de excluir, caso o usuario queira.
+
+    }
+}
 
 // Sorteio (apresentar uma cartela de rifa em formato retangular  para participar de um sorteio)
 
@@ -324,22 +368,37 @@ int livrosFiccao(){
     switch (opcaoFiccao){
     case 0:
         carrinho = carrinho + ficcao[0].valor;
+        strcpy(carrinhoLivros[contadorLivros], ficcao[0].nome);
+        carrinhoValores[contadorLivros] = ficcao[0].valor;
+        contadorLivros ++;
         return livrosFiccao();
         break;
     case 1:
         carrinho = carrinho + ficcao[1].valor;
+        strcpy(carrinhoLivros[contadorLivros], ficcao[1].nome);
+        carrinhoValores[contadorLivros] = ficcao[1].valor;
+        contadorLivros ++;
         return livrosFiccao();
         break;
     case 2:
         carrinho = carrinho + ficcao[2].valor;
+        strcpy(carrinhoLivros[contadorLivros], ficcao[2].nome);
+        carrinhoValores[contadorLivros] = ficcao[2].valor;
+        contadorLivros ++;
         return livrosFiccao();
         break;
     case 3:
         carrinho = carrinho + ficcao[3].valor;
+        strcpy(carrinhoLivros[contadorLivros], ficcao[3].nome);
+        carrinhoValores[contadorLivros] = ficcao[3].valor;
+        contadorLivros ++;
         return livrosFiccao();
         break;
     case 4:
         carrinho = carrinho + ficcao[4].valor;
+        strcpy(carrinhoLivros[contadorLivros], ficcao[4].nome);
+        carrinhoValores[contadorLivros] = ficcao[4].valor;
+        contadorLivros ++;
         return livrosFiccao();
         break;
     case 5:
@@ -410,22 +469,37 @@ int livrosRomance(){
     switch (opcaoRomance){
     case 0:
         carrinho = carrinho + romance[0].valor;
+        strcpy(carrinhoLivros[contadorLivros], romance[0].nome);
+        carrinhoValores[contadorLivros] = romance[0].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 1:
         carrinho = carrinho + romance[1].valor;
+        strcpy(carrinhoLivros[contadorLivros], romance[1].nome);
+        carrinhoValores[contadorLivros] = romance[1].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 2:
         carrinho = carrinho + romance[2].valor;
+        strcpy(carrinhoLivros[contadorLivros], romance[2].nome);
+        carrinhoValores[contadorLivros] = romance[2].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 3:
         carrinho = carrinho + romance[3].valor;
+        strcpy(carrinhoLivros[contadorLivros], romance[3].nome);
+        carrinhoValores[contadorLivros] = romance[3].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 4:
         carrinho = carrinho + romance[4].valor;
+        strcpy(carrinhoLivros[contadorLivros], romance[4].nome);
+        carrinhoValores[contadorLivros] = romance[4].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 5:
@@ -496,22 +570,37 @@ int livrosMisterio(){
     switch (opcaoMisterio){
     case 0:
         carrinho = carrinho + misterio[0].valor;
+        strcpy(carrinhoLivros[contadorLivros], misterio[0].nome);
+        carrinhoValores[contadorLivros] = misterio[0].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 1:
         carrinho = carrinho + misterio[1].valor;
+        strcpy(carrinhoLivros[contadorLivros], misterio[1].nome);
+        carrinhoValores[contadorLivros] = misterio[1].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 2:
         carrinho = carrinho + misterio[2].valor;
+        strcpy(carrinhoLivros[contadorLivros], misterio[2].nome);
+        carrinhoValores[contadorLivros] = misterio[2].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 3:
         carrinho = carrinho + misterio[3].valor;
+        strcpy(carrinhoLivros[contadorLivros], misterio[3].nome);
+        carrinhoValores[contadorLivros] = misterio[3].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 4:
         carrinho = carrinho + misterio[4].valor;
+        strcpy(carrinhoLivros[contadorLivros], misterio[4].nome);
+        carrinhoValores[contadorLivros] = misterio[4].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 5:
@@ -582,22 +671,37 @@ int livrosFantasia(){
     switch (opcaoFantasia){
     case 0:
         carrinho = carrinho + fantasia[0].valor;
+        strcpy(carrinhoLivros[contadorLivros], fantasia[0].nome);
+        carrinhoValores[contadorLivros] = fantasia[0].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 1:
         carrinho = carrinho + fantasia[1].valor;
+        strcpy(carrinhoLivros[contadorLivros], fantasia[1].nome);
+        carrinhoValores[contadorLivros] = fantasia[1].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 2:
         carrinho = carrinho + fantasia[2].valor;
+        strcpy(carrinhoLivros[contadorLivros], fantasia[2].nome);
+        carrinhoValores[contadorLivros] = fantasia[2].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 3:
         carrinho = carrinho + fantasia[3].valor;
+        strcpy(carrinhoLivros[contadorLivros], fantasia[3].nome);
+        carrinhoValores[contadorLivros] = fantasia[3].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 4:
         carrinho = carrinho + fantasia[4].valor;
+        strcpy(carrinhoLivros[contadorLivros], fantasia[4].nome);
+        carrinhoValores[contadorLivros] = fantasia[4].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 5:
@@ -668,29 +772,44 @@ int livrosTerror(){
     switch (opcaoTerror){
     case 0:
         carrinho = carrinho + terror[0].valor;
+        strcpy(carrinhoLivros[contadorLivros], terror[0].nome);
+        carrinhoValores[contadorLivros] = terror[0].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 1:
         carrinho = carrinho + terror[1].valor;
+        strcpy(carrinhoLivros[contadorLivros], terror[1].nome);
+        carrinhoValores[contadorLivros] = terror[1].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 2:
         carrinho = carrinho + terror[2].valor;
+        strcpy(carrinhoLivros[contadorLivros], terror[2].nome);
+        carrinhoValores[contadorLivros] = terror[2].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 3:
         carrinho = carrinho + terror[3].valor;
+        strcpy(carrinhoLivros[contadorLivros], terror[3].nome);
+        carrinhoValores[contadorLivros] = terror[3].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 4:
         carrinho = carrinho + terror[4].valor;
+        strcpy(carrinhoLivros[contadorLivros], terror[4].nome);
+        carrinhoValores[contadorLivros] = terror[4].valor;
+        contadorLivros ++;
         return livrosRomance();
         break;
     case 5:
         return menuPrincipal();
         break;
     case 6:
-        //return menuCarrinho();
+        return menuCarrinho();
         break;
     default:
         printf("Opçao inválida, selecione uma opção válida.");
@@ -698,4 +817,3 @@ int livrosTerror(){
         break;
     }
 }
-
