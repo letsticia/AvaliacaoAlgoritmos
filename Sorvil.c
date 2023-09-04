@@ -263,6 +263,7 @@ int menuPrincipal(){
 qual o método de pagamento. Essa função cumpre o requisito de:
             -> Operações básicas sobre pelo menos 1 item (cadastrar, listar, editar e excluir)*/
 
+
 // Sorteio (apresentar uma cartela de rifa em formato retangular  para participar de um sorteio)
 
 
@@ -689,7 +690,7 @@ int livrosTerror(){
         return menuPrincipal();
         break;
     case 6:
-        return menuCarrinho();
+        //return menuCarrinho();
         break;
     default:
         printf("Opçao inválida, selecione uma opção válida.");
@@ -697,3 +698,4 @@ int livrosTerror(){
         break;
     }
 }
+
