@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-//                               fução main(ultilizada para iniciar um loop entre as funções)
+//                               fução main (ultilizada para iniciar um loop entre as funções)
 int main(){
 
     menuInicial();
@@ -12,6 +12,7 @@ int main(){
 }
 
 //                              Os livros serão postos em um vetor da struct estoque.
+
 struct estoque
 {
     char nome[100];
@@ -138,7 +139,7 @@ int menuCadastro(){
 
     } else{
         for(int contador = 0; contador < strlen(email); contador++){
-            if (email[contador] == '@'){
+            if (strcmp(email[contador], '@') == 0){
                 quantidadesArroba++;
             }
         }
@@ -185,7 +186,7 @@ int menuLogin(){
     // se sim, o usuário é redirecionado para a tela principal
     // se não, o usuário tem que escolher entre tentar logar novamente
     // ou voltar ao menu inicial.
-    if ((!strcmp(admin, email)) && (!strcmp(senhaAdmin, senha))){
+    if ((strcmp(admin, email) != 0) && (strcmp(senhaAdmin, senha) != 0)){
         printf("Login realizado com sucesso!\n");
         return menuPrincipal();
     } else{

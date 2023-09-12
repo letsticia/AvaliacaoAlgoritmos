@@ -57,8 +57,7 @@ void listarContas() {               //função para listar todas as contas cadas
   } else {
     printf("============= Contas cadastradas =============\n");
     for (int i = 0; i < quantidade; i++) {
-      printf("Email: %s | Senha: %s\n", emailsenha[i].email,
-             emailsenha[i].senha);
+      printf("Email: %s | Senha: %s\n", emailsenha[i].email, emailsenha[i].senha);
     }
     printf("==============================================\n");
   }
@@ -133,8 +132,7 @@ int valideEmail(struct Usuario novo_usuario){       //função para analisar se 
 
         if (strlen(novo_usuario.email) < caracteres_max   //comparação se o email e senha estão dentro dos parâmetros
      && strlen(novo_usuario.senha) < caracteres_max
-     &&
-            strchr(novo_usuario.email, '@') != NULL) {    //análise se o email possui o caractere ' @ '
+     && strchr(novo_usuario.email, '@') != NULL) {    //análise se o email possui o caractere ' @ '
             return 1;
         } 
       return 0;
