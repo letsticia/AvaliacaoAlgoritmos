@@ -50,7 +50,7 @@ float carrinho = 0;
 
 // lista que vai amarzenar os livros que estão no carrinho
 char carrinhoLivros[25][50];     
-int carrinhoValores[25];         
+float carrinhoValores[25];         
 
 // variável que vai contar quantos livros estão no carrinho e vai ajudar a mostrar cada um deles
 int contadorLivros = 0;
@@ -58,8 +58,10 @@ int contadorLivros = 0;
 
 //                          protótipos das funções que serão utilizadas no projeto (pt.2):
 
-int menuCarrinho();                              
+// -> menus para o carrinho
 
+int menuCarrinho();                              
+int menuPagamento();
 
 // -> menus de filtros de livros
 
@@ -368,9 +370,9 @@ int menuPrincipal(){
 }
 
 
-/* Menu de carrinho, o qual mostra a total das compras do usuário, além de mostrar quais itens estão no carrinho, também pergunta
-qual o método de pagamento. Essa função cumpre o requisito de:
-            -> Operações básicas sobre pelo menos 1 item (cadastrar, listar, editar e excluir)*/
+/* Menu de carrinho, o qual mostra a total das compras do usuário, 
+além de mostrar quais itens estão no carrinho, 
+ela envia o usuário para um menu de pagamento*/
 
 int menuCarrinho(){
 
@@ -382,20 +384,92 @@ int menuCarrinho(){
     printf("=========================================\n\n");
 
     if (contadorLivros == 0){
-        printf("Você não colocou nada no seu carrinho ainda!\nVocê deseja voltar ao menu (1) ou você deseja\n sair do sorvill?");
+        printf("Você não colocou nada no seu carrinho ainda!\nVocê deseja voltar ao menu (1) ou você deseja\n sair do sorvill?(2)");
+        scanf("%i", opcaoCarrinho);
+        switch (opcaoCarrinho){
+            case 1:
+                return menuPrincipal();
+                break;
+            case 2:
+                return 0;
+                break;
+            default:
+                printf("opção inválida, por favor digite uma opção válida\n");
+                return menuCarrinho();
+                break;
+        }
     } 
     else{
-        printf("Os seguintes livros estão no seu carrinho:");
-        printf("[ID]        NOME              VALOR(R$)");
+        printf("Os seguintes livros estão no seu carrinho:\n");
+        printf("[ID]       VALOR(R$)               NOME DO LIVRO\n");
         for(int contador = 0; contador < contadorLivros; contador++){
-            printf("[%i]        %s              R$%.2f");
+            printf("[%i]       R$%.2f               %s\n", contador, carrinhoValores[contador], carrinhoLivros[contador]);
         }
-        
-        // falta 
-        //--> opcao de excluir, caso o usuario queira.
-        // editar 
-        // adicionar mais
+        printf("VALOR TOTAL: R$%.2f\n", carrinho);
+        printf("Você deseja concluir a compra (1) ou voltar ao menu principal para\n adicionar mais itens ao seu carrinho(2)?");
+        scanf("%i", opcaoCarrinho);
 
+        switch (opcaoCarrinho){
+            case 1:
+                return menuPagamento();
+                break;
+            case 2:
+                return menuPrincipal();
+                break;
+            default:
+                printf("opção inválida, por favor digite uma opção válida\n");
+                return menuCarrinho();
+                break;
+        }
+
+
+    }
+}
+
+int menuPagamento(){
+
+    int opcaoPagamento;
+
+    printf("=========================================\n");
+    printf("           Método de Pagamento           \n");
+    printf("=========================================\n\n");
+
+    printf("escolha uma das opções a seguir:");
+    printf("-----------------------------------------\n");
+    printf("    (1)     Pix\n");
+    printf("    (2)     Boleto\n");
+    printf("    (3)     Cartão de crédito\n");
+    printf("    (4)     Cartão de débito\n");
+    printf("    (5)     Voltar ao menu principal\n");
+    printf("-----------------------------------------\n");
+    printf("Opção escolhida:");
+    scanf("%i", opcaoPagamento);
+    
+    switch (opcaoPagamento){
+        case 1:
+            printf("O pix da loja é o e-mail: sorvil@sorvil.com e o total da compra foi de: R$%.2f", carrinho);
+            printf("Obrigada por comprar no sorvil! Volte sempre!");
+            return 0;
+            break;
+        case 2:
+            printf("Um e-mail contendo os números do código de barras foi enviar para o seu e-mail cadastrado.");
+            printf("Obrigada por comprar no sorvil! Volte sempre!");
+            return 0;
+            break;
+        case 3:
+            printf("Um link foi enviado para o e-mail cadastrado para realizar o pagamento por esse método");
+            printf("Obrigada por comprar no sorvil! Volte sempre!");
+            return 0;
+            break;
+        case 4:
+            printf("Um link foi enviado para o e-mail cadastrado para realizar o pagamento por esse método");
+            printf("Obrigada por comprar no sorvil! Volte sempre!");
+            return 0;
+            break;
+        default:
+            printf("opção inválida, por favor digite uma opção válida\n");
+            return menuPagamento();
+            break;
     }
 }
 
@@ -455,28 +529,58 @@ int livrosFiccao(){
     scanf("%i", &opcaoFiccao);
 
     // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
-
-    if (0 <= opcaoFiccao <= 4){
-      carrinho = carrinho + ficcao[opcaoFiccao].valor;
-      strcpy(carrinhoLivros[contadorLivros], ficcao[opcaoFiccao].nome);
-      carrinhoValores[contadorLivros] = ficcao[opcaoFiccao].valor;
-      contadorLivros ++;
-      return livrosFiccao();
-
-    } else{
       switch (opcaoFiccao){
-      case 5:
-          return menuPrincipal();
-          break;
-      case 6:
-          return livrosRomance();
-          break;
-      default:
-          printf("Opçao inválida, selecione uma opção válida.");
-          return livrosFiccao();
-          break;
+        case 0:
+            carrinho = carrinho + ficcao[0].valor;
+            strcpy(carrinhoLivros[contadorLivros], ficcao[0].nome);
+            carrinhoValores[contadorLivros] = ficcao[0].valor;
+            contadorLivros ++;
+            printf("itens no carrinho: %i", contadorLivros);
+            return livrosFiccao();
+            break;
+        case 1:
+            carrinho = carrinho + ficcao[1].valor;
+            strcpy(carrinhoLivros[contadorLivros], ficcao[1].nome);
+            carrinhoValores[contadorLivros] = ficcao[1].valor;
+            contadorLivros ++;
+            printf("itens no carrinho: %i", contadorLivros);
+            return livrosFiccao();
+            break;
+        case 2:
+            carrinho = carrinho + ficcao[2].valor;
+            strcpy(carrinhoLivros[contadorLivros], ficcao[2].nome);
+            carrinhoValores[contadorLivros] = ficcao[2].valor;
+            contadorLivros ++;
+            printf("itens no carrinho: %i", contadorLivros);
+            return livrosFiccao();
+            break;
+        case 3:
+            carrinho = carrinho + ficcao[3].valor;
+            strcpy(carrinhoLivros[contadorLivros], ficcao[3].nome);
+            carrinhoValores[contadorLivros] = ficcao[3].valor;
+            contadorLivros ++;
+            printf("itens no carrinho: %i", contadorLivros);
+            return livrosFiccao();
+            break;
+        case 4:
+            carrinho = carrinho + ficcao[4].valor;
+            strcpy(carrinhoLivros[contadorLivros], ficcao[4].nome);
+            carrinhoValores[contadorLivros] = ficcao[4].valor;
+            contadorLivros ++;
+            printf("itens no carrinho: %i", contadorLivros);
+            return livrosFiccao();
+            break;
+        case 5:
+            return menuPrincipal();
+            break;
+        case 6:
+            return livrosRomance();
+            break;
+        default:
+            printf("Opçao inválida, selecione uma opção válida.");
+            return livrosFiccao();
+            break;
       }
-    }
 }
 
 // Menu que irá exibir os livros de Romance
@@ -530,25 +634,52 @@ int livrosRomance(){
     scanf("%i", &opcaoRomance);
 
     // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
-    if (0 <= opcaoRomance <= 4){
-      carrinho = carrinho + romance[opcaoRomance].valor;
-      strcpy(carrinhoLivros[contadorLivros], romance[opcaoRomance].nome);
-      carrinhoValores[contadorLivros] = romance[opcaoRomance].valor;
-      contadorLivros ++;
-      return livrosFiccao();}
-    else{
       switch (opcaoRomance){
-      case 5:
-          return menuPrincipal();
-          break;
-      case 6:
-          return livrosMisterio();
-          break;
-      default:
-          printf("Opçao inválida, selecione uma opção válida.");
-          return livrosRomance();
-          break;
-    }
+        case 0:
+            carrinho = carrinho + romance[0].valor;
+            strcpy(carrinhoLivros[contadorLivros], romance[0].nome);
+            carrinhoValores[contadorLivros] = romance[0].valor;
+            contadorLivros ++;
+            return livrosRomance();
+            break;
+        case 1:
+            carrinho = carrinho + romance[1].valor;
+            strcpy(carrinhoLivros[contadorLivros], romance[1].nome);
+            carrinhoValores[contadorLivros] = romance[1].valor;
+            contadorLivros ++;
+            return livrosRomance();
+            break;
+        case 2:
+            carrinho = carrinho + romance[2].valor;
+            strcpy(carrinhoLivros[contadorLivros], romance[2].nome);
+            carrinhoValores[contadorLivros] = romance[2].valor;
+            contadorLivros ++;
+            return livrosRomance();
+            break;
+        case 3:
+            carrinho = carrinho + romance[3].valor;
+            strcpy(carrinhoLivros[contadorLivros], romance[3].nome);
+            carrinhoValores[contadorLivros] = romance[3].valor;
+            contadorLivros ++;
+            return livrosRomance();
+            break;
+        case 4:
+            carrinho = carrinho + romance[4].valor;
+            strcpy(carrinhoLivros[contadorLivros], romance[4].nome);
+            carrinhoValores[contadorLivros] = romance[4].valor;
+            contadorLivros ++;
+            return livrosRomance();
+            break;
+        case 5:
+            return menuPrincipal();
+            break;
+        case 6:
+            return livrosMisterio();
+            break;
+        default:
+            printf("Opçao inválida, selecione uma opção válida.");
+            return livrosRomance();
+            break;
     }
 }
 
@@ -604,26 +735,54 @@ int livrosMisterio(){
 
     // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
 
-    if (0 <= livrosMisterio <= 4){
-      carrinho = carrinho + misterio[opcaoMisterio].valor;
-      strcpy(carrinhoLivros[contadorLivros], misterio[opcaoMisterio].nome);
-      carrinhoValores[contadorLivros] = misterio[opcaoMisterio].valor;
-      contadorLivros ++;
-      return livrosFiccao();
-    } else{
+    
     switch (opcaoMisterio){
-    case 5:
-        return menuPrincipal();
-        break;
-    case 6:
-        return livrosFantasia();
-        break;
-    default:
-        printf("Opçao inválida, selecione uma opção válida.");
-        return livrosMisterio();
-        break;
-    }  // tobias q fez
-    }
+        case 0:
+            carrinho = carrinho + misterio[0].valor;
+            strcpy(carrinhoLivros[contadorLivros], misterio[0].nome);
+            carrinhoValores[contadorLivros] = misterio[0].valor;
+            contadorLivros ++;
+            return livrosMisterio();
+            break;
+        case 1:
+            carrinho = carrinho + misterio[1].valor;
+            strcpy(carrinhoLivros[contadorLivros], misterio[1].nome);
+            carrinhoValores[contadorLivros] = misterio[1].valor;
+            contadorLivros ++;
+            return livrosMisterio();
+            break;
+        case 2:
+            carrinho = carrinho + misterio[2].valor;
+            strcpy(carrinhoLivros[contadorLivros], misterio[2].nome);
+            carrinhoValores[contadorLivros] = misterio[2].valor;
+            contadorLivros ++;
+            return livrosMisterio();
+            break;
+        case 3:
+            carrinho = carrinho + misterio[3].valor;
+            strcpy(carrinhoLivros[contadorLivros], misterio[3].nome);
+            carrinhoValores[contadorLivros] = misterio[3].valor;
+            contadorLivros ++;
+            return livrosMisterio();
+            break;
+        case 4:
+            carrinho = carrinho + misterio[4].valor;
+            strcpy(carrinhoLivros[contadorLivros], misterio[4].nome);
+            carrinhoValores[contadorLivros] = misterio[4].valor;
+            contadorLivros ++;
+            return livrosMisterio();
+            break;
+        case 5:
+            return menuPrincipal();
+            break;
+        case 6:
+            return livrosFantasia();
+            break;
+        default:
+            printf("Opçao inválida, selecione uma opção válida.");
+            return livrosMisterio();
+            break;
+    }  
 }
 
 // Menu que irá exibir os livros de Fantasia
@@ -633,6 +792,7 @@ int livrosFantasia(){
     // variável que vai ser ultilizada para navegar nesse menu
     int opcaoFantasia;
 
+    opcaoFantasia = 0;
     // criando o vetor para os livros de romance da struct estoque
     struct estoque fantasia[4];
 
@@ -684,37 +844,38 @@ int livrosFantasia(){
         strcpy(carrinhoLivros[contadorLivros], fantasia[0].nome);
         carrinhoValores[contadorLivros] = fantasia[0].valor;
         contadorLivros ++;
-        return livrosRomance();
+        return livrosFantasia();
         break;
     case 1:
         carrinho = carrinho + fantasia[1].valor;
         strcpy(carrinhoLivros[contadorLivros], fantasia[1].nome);
         carrinhoValores[contadorLivros] = fantasia[1].valor;
         contadorLivros ++;
-        return livrosRomance();
+        return livrosFantasia();
         break;
     case 2:
         carrinho = carrinho + fantasia[2].valor;
         strcpy(carrinhoLivros[contadorLivros], fantasia[2].nome);
         carrinhoValores[contadorLivros] = fantasia[2].valor;
         contadorLivros ++;
-        return livrosRomance();
+        return livrosFantasia();
         break;
     case 3:
         carrinho = carrinho + fantasia[3].valor;
         strcpy(carrinhoLivros[contadorLivros], fantasia[3].nome);
         carrinhoValores[contadorLivros] = fantasia[3].valor;
         contadorLivros ++;
-        return livrosRomance();
+        return livrosFantasia();
         break;
     case 4:
         carrinho = carrinho + fantasia[4].valor;
         strcpy(carrinhoLivros[contadorLivros], fantasia[4].nome);
         carrinhoValores[contadorLivros] = fantasia[4].valor;
         contadorLivros ++;
-        return livrosRomance();
+        return livrosFantasia();
         break;
     case 5:
+        printf("voltando ao menu principal\n");
         return menuPrincipal();
         break;
     case 6:
@@ -722,7 +883,7 @@ int livrosFantasia(){
         break;
     default:
         printf("Opçao inválida, selecione uma opção válida.");
-        return livrosMisterio();
+        return livrosFantasia();
         break;
     }
 }
@@ -785,35 +946,35 @@ int livrosTerror(){
         strcpy(carrinhoLivros[contadorLivros], terror[0].nome);
         carrinhoValores[contadorLivros] = terror[0].valor;
         contadorLivros ++;
-        return livrosRomance();
+        return livrosTerror();
         break;
     case 1:
         carrinho = carrinho + terror[1].valor;
         strcpy(carrinhoLivros[contadorLivros], terror[1].nome);
         carrinhoValores[contadorLivros] = terror[1].valor;
         contadorLivros ++;
-        return livrosRomance();
+        return livrosTerror();
         break;
     case 2:
         carrinho = carrinho + terror[2].valor;
         strcpy(carrinhoLivros[contadorLivros], terror[2].nome);
         carrinhoValores[contadorLivros] = terror[2].valor;
         contadorLivros ++;
-        return livrosRomance();
+        return livrosTerror();
         break;
     case 3:
         carrinho = carrinho + terror[3].valor;
         strcpy(carrinhoLivros[contadorLivros], terror[3].nome);
         carrinhoValores[contadorLivros] = terror[3].valor;
         contadorLivros ++;
-        return livrosRomance();
+        return livrosTerror();
         break;
     case 4:
         carrinho = carrinho + terror[4].valor;
         strcpy(carrinhoLivros[contadorLivros], terror[4].nome);
         carrinhoValores[contadorLivros] = terror[4].valor;
         contadorLivros ++;
-        return livrosRomance();
+        return livrosTerror();
         break;
     case 5:
         return menuPrincipal();
@@ -823,10 +984,7 @@ int livrosTerror(){
         break;
     default:
         printf("Opçao inválida, selecione uma opção válida.");
-        return livrosMisterio();
+        return livrosTerror();
         break;
     }
 }
-
-
-        
