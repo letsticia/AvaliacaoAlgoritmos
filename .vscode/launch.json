@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Tobyg/OneDrive/Área de Trabalho/atividade/AvaliacaoAlgoritmos",
-      "program": "c:/Users/Tobyg/OneDrive/Área de Trabalho/atividade/AvaliacaoAlgoritmos/build/Debug/outDebug",
+      "cwd": "c:/Users/Tobyg/OneDrive/Área de Trabalho/fwfwef/AvaliacaoAlgoritmos",
+      "program": "c:/Users/Tobyg/OneDrive/Área de Trabalho/fwfwef/AvaliacaoAlgoritmos/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
       "setupCommands": [
