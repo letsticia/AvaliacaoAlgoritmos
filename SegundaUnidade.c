@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <locale.h>
+#include <time.h>
+
 #define CARACTERES_MAX 80 // define uma constante referente aos caracteres máximos com valor igual a 80
 
 //                          protótipos das funções que serão utilizadas no projeto (pt.1):
@@ -19,7 +20,6 @@ int excluirConta();
 //                               fução main(ultilizada para iniciar um loop entre as funções)
 int main(){
 
-    setlocale(LC_ALL, "portuguese");
     menuInicial();
 
     return 0; 
@@ -72,7 +72,11 @@ int livrosFiccao();
 int livrosRomance();                             
 int livrosMisterio();                            
 int livrosFantasia();                            
-int livrosTerror();                              
+int livrosTerror();               
+
+// -> menu do sorteio
+
+int sorteioTabela();
 
 
 //                          declaração das funções do projeto
@@ -97,16 +101,15 @@ int menuInicial(){
     printf("    (6)     Excluir conta\n");
     printf("-----------------------------------------\n");
 
-    printf("Selecione uma das opções acima: ");
+    printf("Selecione uma das opcoes acima: ");
     scanf("%i", &opcao);
     switch (opcao){
     case 1:
-        printf("Você está sendo redirencionado para o menu de Login\n");
+        printf("Voce esta sendo redirencionado para o menu de Login\n");
         return menuLogin();
         break;
     case 2:
-        system("cls");
-        printf("Você está sendo redirencionado para o menu de Criação de Contas\n");
+        printf("Voce esta sendo redirencionado para o menu de Criacao de Contas\n");
         return menuCadastro();
         break;
     case 3:
@@ -116,15 +119,15 @@ int menuInicial(){
         return listarContas();
         break;
     case 5:
-        printf("Você está sendo redirencionado para o menu de editar senha\n");
+        printf("Voce esta sendo redirencionado para o menu de editar senha\n");
         return editarSenha();
         break;
     case 6:
-        printf("Você está sendo redirencionado para o menu de excluir conta\n");
+        printf("Voce esta sendo redirencionado para o menu de excluir conta\n");
         return excluirConta();
         break;
     default:
-        printf("Opção inválida, por favor, selecione uma opção válida.\n");
+        printf("Opcao invalida, por favor, selecione uma opcao valida.\n");
         return menuInicial();
         break;
     }   
@@ -149,9 +152,9 @@ int valideEmail(struct Usuario novo_usuario){       //função para analisar se 
 }
 
 void loginErrado() {        //função para caso email/senha estejam fora do padrão exigido
-  printf("Erro de cadastramento, possíveis motivos:\n1- email e/ou senha "
+  printf("Erro de cadastramento, possiveis motivos:\n1- email e/ou senha "
          "atingiram 80 ou mais caracteres.\n2- o email não possui o caractere "
-         "'@'.\n3- O email já está cadastrado no sistema.\n\n");
+         "'@'.\n3- O email ja esta cadastrado no sistema.\n\n");
 }
 
 /* Menu feito para cadastrar contas novas ao programa, esta função é a que valida os e-mails
@@ -230,7 +233,7 @@ int menuLogin(){
           return menuLogin();
           break;
         case 2:
-          printf("Você está sendo redirecionado para o menu inicial");
+          printf("Voce esta sendo redirecionado para o menu inicial");
           return menuInicial();
           break;
         default:
@@ -273,6 +276,7 @@ int editarSenha() {        //função para editar senha de uma conta já cadastr
   }
   if (!encontrado) {
     printf("Email e/ou senha incorretos. Tente novamente.\n");
+    return editarSenha();
   }
 }
 
@@ -318,9 +322,9 @@ int menuPrincipal(){
     printf("\n");
     printf("-----------------------------------------\n");
     printf("    (1)     Visualizar todos os livros\n");
-    printf("    (2)     Visualizar livros de ficção\n");
+    printf("    (2)     Visualizar livros de ficcao\n");
     printf("    (3)     Visualizar livros de romance\n");
-    printf("    (4)     Visualizar livros de mistério\n");
+    printf("    (4)     Visualizar livros de misterio\n");
     printf("    (5)     Visualizar livros de fantasia\n");
     printf("    (6)     Visualizar livros de terror\n");
     printf("    (7)     Visualizar carrinho\n");
@@ -367,7 +371,7 @@ int menuPrincipal(){
         return menuInicial();
         break;
     default:
-        printf("opção inválida, por favor, digite uma opção válida");
+        printf("opcao invalida, por favor, digite uma opcao valida");
         return menuPrincipal();
         break;
     }
@@ -388,7 +392,7 @@ int menuCarrinho(){
     printf("=========================================\n\n");
 
     if (contadorLivros == 0){
-        printf("Você não colocou nada no seu carrinho ainda!\nVocê deseja voltar ao menu (1) ou você deseja\n sair do sorvill?(2)");
+        printf("Voce nao colocou nada no seu carrinho ainda!\nVocê deseja voltar ao menu (1) ou você deseja sair do sorvill?(2)\n");
         scanf("%i", &opcaoCarrinho);
         switch (opcaoCarrinho){
             case 1:
@@ -398,7 +402,7 @@ int menuCarrinho(){
                 return 0;
                 break;
             default:
-                printf("opção inválida, por favor digite uma opção válida\n");
+                printf("opcao invalida, por favor digite uma opcao valida\n");
                 return menuCarrinho();
                 break;
         }
@@ -410,7 +414,7 @@ int menuCarrinho(){
             printf("[%i]       R$%.2f               %s\n", contador, carrinhoValores[contador], carrinhoLivros[contador]);
         }
         printf("VALOR TOTAL: R$%.2f\n", carrinho);
-        printf("Você deseja concluir a compra (1) ou voltar ao menu principal para\n adicionar mais itens ao seu carrinho(2)?");
+        printf("Você deseja concluir a compra (1) ou voltar ao menu principal para\n adicionar mais itens ao seu carrinho(2)?\n");
         scanf("%i", &opcaoCarrinho);
 
         switch (opcaoCarrinho){
@@ -421,7 +425,7 @@ int menuCarrinho(){
                 return menuPrincipal();
                 break;
             default:
-                printf("opção inválida, por favor digite uma opção válida\n");
+                printf("opcao invalida, por favor digite uma opcao valida\n");
                 return menuCarrinho();
                 break;
         }
@@ -435,49 +439,43 @@ int menuPagamento(){
     int opcaoPagamento;
 
     printf("=========================================\n");
-    printf("           Método de Pagamento           \n");
+    printf("           Metodo de Pagamento           \n");
     printf("=========================================\n\n");
 
-    printf("escolha uma das opções a seguir:\n");
+    printf("escolha uma das opcoes a seguir:");
     printf("-----------------------------------------\n");
     printf("    (1)     Pix\n");
     printf("    (2)     Boleto\n");
-    printf("    (3)     Cartão de crédito\n");
-    printf("    (4)     Cartão de débito\n");
+    printf("    (3)     Cartão de credito\n");
+    printf("    (4)     Cartão de debito\n");
     printf("    (5)     Voltar ao menu principal\n");
     printf("-----------------------------------------\n");
-    printf("Opção escolhida:");
+    printf("Opcao escolhida:");
     scanf("%i", &opcaoPagamento);
     
     switch (opcaoPagamento){
         case 1:
-            printf("O pix da loja é o e-mail: sorvil@sorvil.com e o total da compra foi de: R$%.2f", carrinho);
-            printf("Obrigada por comprar no sorvil! Volte sempre!");
-            return 0;
+            printf("O pix da loja e o e-mail: pagamento@sorvil.com e o total da compra foi de: R$%.2f\n", carrinho);
+            return sorteioTabela();
             break;
         case 2:
-            printf("Um e-mail contendo os números do código de barras foi enviar para o seu e-mail cadastrado.");
-            printf("Obrigada por comprar no sorvil! Volte sempre!");
-            return 0;
+            printf("Um e-mail contendo os numeros do código de barras foi enviado para o seu e-mail cadastrado.\n");
+            return sorteioTabela();
             break;
         case 3:
-            printf("Um link foi enviado para o e-mail cadastrado para realizar o pagamento por esse método");
-            printf("Obrigada por comprar no sorvil! Volte sempre!");
-            return 0;
+            printf("Um link foi enviado para o e-mail cadastrado para realizar o pagamento por esse metodo\n");
+            return sorteioTabela();
             break;
         case 4:
-            printf("Um link foi enviado para o e-mail cadastrado para realizar o pagamento por esse método");
-            printf("Obrigada por comprar no sorvil! Volte sempre!");
-            return 0;
+            printf("Um link foi enviado para o e-mail cadastrado para realizar o pagamento por esse metodo\n");
+            return sorteioTabela();
             break;
         default:
-            printf("opção inválida, por favor digite uma opção válida\n");
+            printf("opcao invalida, por favor digite uma opcao valida:\n");
             return menuPagamento();
             break;
     }
 }
-
-// Sorteio (apresentar uma cartela de rifa em formato retangular  para participar de um sorteio)
 
 
 // Menu que irá exibir os livros de Ficção
@@ -494,23 +492,23 @@ int livrosFiccao(){
     //  declarando os livros de ficção dentro do vetor
 
     strcpy(ficcao[0].nome, "1984");
-    strcpy(ficcao[0].genero, "Ficção");
+    strcpy(ficcao[0].genero, "Ficcao");
     ficcao[0].valor = 45.0;
 
     strcpy(ficcao[1].nome, "Neuromancer");
-    strcpy(ficcao[1].genero, "Ficção");
+    strcpy(ficcao[1].genero, "Ficcao");
     ficcao[1].valor = 37.5;
 
     strcpy(ficcao[2].nome, "Duna");
-    strcpy(ficcao[2].genero, "Ficção");
+    strcpy(ficcao[2].genero, "Ficcao");
     ficcao[2].valor = 52.0;
 
     strcpy(ficcao[3].nome, "O Guia do Mochileiro das Galáxias");
-    strcpy(ficcao[3].genero, "Ficção");
+    strcpy(ficcao[3].genero, "Ficcao");
     ficcao[3].valor = 29.99;
 
     strcpy(ficcao[4].nome, "O Conto da Aia");
-    strcpy(ficcao[4].genero, "Ficção");
+    strcpy(ficcao[4].genero, "Ficcao");
     ficcao[4].valor = 42.8;
 
 
@@ -528,8 +526,8 @@ int livrosFiccao(){
         printf("[VALOR:  ]      %.2f\n", ficcao[contador].valor);
         printf("[ID:     ]      %i\n\n", contador);
     }
-    printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
-    printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
+    printf("[5]       VOLTAR AO MENU            [6]     PROXIMA PAGINA\n\n\n");
+    printf("Para adicionar algum livro, digite o id deles, se nao, ultilize\nos outros ids para voltar ao menu ou ir para a proxima pagina:\n");
     scanf("%i", &opcaoFiccao);
 
     // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
@@ -581,7 +579,7 @@ int livrosFiccao(){
             return livrosRomance();
             break;
         default:
-            printf("Opçao inválida, selecione uma opção válida.");
+            printf("Opcao invalida, selecione uma opcao valida.");
             return livrosFiccao();
             break;
       }
@@ -603,11 +601,11 @@ int livrosRomance(){
     strcpy(romance[0].genero, "Romance");
     romance[0].valor = 28.5;
 
-    strcpy(romance[1].nome, "O Amor nos Tempos do Cólera");
+    strcpy(romance[1].nome, "O Amor nos Tempos do Colera");
     strcpy(romance[1].genero, "Romance");
     romance[1].valor = 34.2;
 
-    strcpy(romance[2].nome, "Como Eu Era Antes de Você");
+    strcpy(romance[2].nome, "Como Eu Era Antes de Voce");
     strcpy(romance[2].genero, "Romance");
     romance[2].valor = 31.75;
 
@@ -633,7 +631,7 @@ int livrosRomance(){
         printf("[VALOR:  ]      %.2f\n", romance[contador].valor);
         printf("[ID:     ]      %i\n\n", contador);
     }
-    printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
+    printf("[5]       VOLTAR AO MENU            [6]     PROXIMA PÁGINA\n\n\n");
     printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
     scanf("%i", &opcaoRomance);
 
@@ -681,7 +679,7 @@ int livrosRomance(){
             return livrosMisterio();
             break;
         default:
-            printf("Opçao inválida, selecione uma opção válida.");
+            printf("Opçao invalida, selecione uma opcao valida.");
             return livrosRomance();
             break;
     }
@@ -699,30 +697,30 @@ int livrosMisterio(){
 
     //  declarando os livros de Misterio dentro do vetor
 
-    strcpy(misterio[0].nome, "O Código Da Vinci");
-    strcpy(misterio[0].genero, "Mistério");
+    strcpy(misterio[0].nome, "O Codigo Da Vinci");
+    strcpy(misterio[0].genero, "Misterio");
     misterio[0].valor = 27.95;
 
     strcpy(misterio[1].nome, "Sherlock Holmes: As Aventuras");
-    strcpy(misterio[1].genero, "Mistério");
+    strcpy(misterio[1].genero, "Misterio");
     misterio[1].valor = 23.7;
 
     strcpy(misterio[2].nome, "Garota Exemplar");
-    strcpy(misterio[2].genero, "Mistério");
+    strcpy(misterio[2].genero, "Misterio");
     misterio[2].valor = 32.4;
 
-    strcpy(misterio[3].nome, "O Silêncio dos Inocentes");
-    strcpy(misterio[3].genero, "Mistério");
+    strcpy(misterio[3].nome, "O Silencio dos Inocentes");
+    strcpy(misterio[3].genero, "Misterio");
     misterio[3].valor = 29.15;
 
     strcpy(misterio[4].nome, "A Garota no Trem");
-    strcpy(misterio[4].genero, "Mistério");
+    strcpy(misterio[4].genero, "Misterio");
     misterio[4].valor = 25.8;
 
     // parte visivel ao usuário
 
     printf("=========================================\n");
-    printf("           LIVROS DE MISTÉRIO            \n");
+    printf("           LIVROS DE MISTERIO            \n");
     printf("=========================================\n");
     printf("\n");
 
@@ -733,8 +731,8 @@ int livrosMisterio(){
         printf("[VALOR:  ]      %.2f\n", misterio[contador].valor);
         printf("[ID:     ]      %i\n\n", contador);
     }
-    printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
-    printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
+    printf("[5]       VOLTAR AO MENU            [6]     PROXIMA PÁGINA\n\n\n");
+    printf("Para adicionar algum livro, digite o id deles, se nao, ultilize\nos outros ids para voltar ao menu ou ir para a proxima pagina");
     scanf("%i", &opcaoMisterio);
 
     // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
@@ -783,7 +781,7 @@ int livrosMisterio(){
             return livrosFantasia();
             break;
         default:
-            printf("Opçao inválida, selecione uma opção válida.");
+            printf("Opçao invalida, selecione uma opcao valida.");
             return livrosMisterio();
             break;
     }  
@@ -802,7 +800,7 @@ int livrosFantasia(){
 
     //  declarando os livros de Fantasia dentro do vetor
 
-    strcpy(fantasia[0].nome, "O Senhor dos Anéis");
+    strcpy(fantasia[0].nome, "O Senhor dos Aneis");
     strcpy(fantasia[0].genero, "Fantasia");
     fantasia[0].valor = 56.75;
 
@@ -810,7 +808,7 @@ int livrosFantasia(){
     strcpy(fantasia[1].genero, "Fantasia");
     fantasia[1].valor = 42.0;
 
-    strcpy(fantasia[2].nome, "Crônicas de Nárnia: O Leão, a Feiticeira e o Guarda-Roupa");
+    strcpy(fantasia[2].nome, "Crônicas de Narnia: O Leao, a Feiticeira e o Guarda-Roupa");
     strcpy(fantasia[2].genero, "Fantasia");
     fantasia[2].valor = 30.25;
 
@@ -836,8 +834,8 @@ int livrosFantasia(){
         printf("[VALOR:  ]      %.2f\n", fantasia[contador].valor);
         printf("[ID:     ]      %i\n\n", contador);
     }
-    printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
-    printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
+    printf("[5]       VOLTAR AO MENU            [6]     PROXIMA PÁGINA\n\n\n");
+    printf("Para adicionar algum livro, digite o id deles, se nao, ultilize\nos outros ids para voltar ao menu ou ir para a proxima pagina");
     scanf("%i", &opcaoFantasia);
 
     // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
@@ -886,7 +884,7 @@ int livrosFantasia(){
         return livrosTerror();
         break;
     default:
-        printf("Opçao inválida, selecione uma opção válida.");
+        printf("Opçao invalida, selecione uma opcao valida.");
         return livrosFantasia();
         break;
     }
@@ -938,8 +936,8 @@ int livrosTerror(){
         printf("[VALOR:  ]      %.2f\n", terror[contador].valor);
         printf("[ID:     ]      %i\n\n", contador);
     }
-    printf("[5]       VOLTAR AO MENU            [6]     PRÓXIMA PÁGINA\n\n\n");
-    printf("Para adicionar algum livro, digite o id deles, se não, ultilize\nos outros ids para voltar ao menu ou ir para a próxima página");
+    printf("[5]       VOLTAR AO MENU            [6]     PROXIMA PÁGINA\n\n\n");
+    printf("Para adicionar algum livro, digite o id deles, se nao, ultilize\nos outros ids para voltar ao menu ou ir para a proxima pagina");
     scanf("%i", &opcaoTerror);
 
     // switch que permitirá que o usuário escolha qual o livro e se quer voltar ao menu ou ir para a prox pag
@@ -987,8 +985,69 @@ int livrosTerror(){
         return menuCarrinho();
         break;
     default:
-        printf("Opçao inválida, selecione uma opção válida.");
+        printf("Opçao invalida, selecione uma opcao valida.");
         return livrosTerror();
         break;
     }
+}
+
+// Sorteio (apresentar uma cartela de rifa em formato retangular  para participar de um sorteio)
+
+int sorteioTabela(){
+  // Declara uma matriz de 10 por 10
+  int matriz[10][10];
+
+  // Preenche a matriz com os números de 1 a 100
+  for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 10; j++) {
+      matriz[i][j] = i * 10 + j + 1;
+    }
+  }
+  // imprime os valores da matriz
+  for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 10; j++) {
+      printf("\t%d ", matriz[i][j]);
+    }
+    printf("\n");
+  }
+
+  // Solicita ao usuário um número entre 1 e 100
+  int numero;
+  printf("Digite um numero entre 1 e 100: ");
+  scanf("%d", &numero);
+
+  // Verifica se o número é válido
+  
+  if (numero < 1 || numero > 100) {
+    printf("Numero invalido.");
+    return sorteioTabela();
+  }
+
+  // Imprime a tabela com um "X" no número escolhido
+  for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 10; j++) {
+      if (matriz[i][j] == numero) {
+        printf("  X  ");
+      } else {
+        printf("\t%d ", matriz[i][j]);
+      }
+    }
+    printf("\n");
+  }
+
+  srand(time(NULL));
+
+  // Gera um número aleatório entre 1 e 100
+  int numero_sorteado = rand() % 100 + 1;
+
+  // Compara os números
+  if (numero == numero_sorteado) {
+    printf("Parabens! Voce acertou o numero sorteado.\n");
+    printf("Obrigado/a por comprar no sorvil! Volte sempre!\n");
+    return 0;
+  } else {
+    printf("Você errou. O numero sorteado foi %d.\nQuem sabe na proxima ?\n", numero_sorteado);
+    printf("Obrigado/a por comprar no sorvil! Volte sempre!\n");
+    return 0;
+  }
 }
